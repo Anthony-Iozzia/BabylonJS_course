@@ -14,6 +14,7 @@ function startGame() {
     modifySettings();
 
     let tank = scene.getMeshByName("heroTank");
+    let followCamera = scene.getCameraByName("tankFollowCamera");
 
     engine.runRenderLoop(() => {
         let deltaTime = engine.getDeltaTime(); // remind you something ?
@@ -23,7 +24,14 @@ function startGame() {
 
         // if we want to move while taking into account collision detections
         // collision uses by default "ellipsoids"
-        tank.moveWithCollisions(new BABYLON.Vector3(0, 0, 1));
+        // Question 1
+        if(tank.position.y <= 1.5) {
+            tank.moveWithCollisions(new BABYLON.Vector3(0, 0, 1));
+        }
+
+        // Rotate camera Q3
+        followCamera.rotationOffset += 0.3;
+        
         scene.render();
     });
 }

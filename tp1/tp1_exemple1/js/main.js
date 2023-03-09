@@ -11,38 +11,58 @@ function startGame() {
 
     scene = createScene();
 
-    //let sphere = scene.getMeshByName("mySphere");
+    let sphere = scene.getMeshByName("mySphere");
 
     // main animation loop 60 times/s
     engine.runRenderLoop(() => {
         scene.render();
+        // sphere.position.y += 0.01;
+        // sphere.position.x += 0.01;
     });
 }
 
 function createScene() {
     let scene = new BABYLON.Scene(engine);
-    
+
     // background
     scene.clearColor = new BABYLON.Color3(1, 0, 1);
     // Create some objects 
     // params = number of horizontal "stripes", diameter...
-    let sphere = BABYLON.MeshBuilder.CreateSphere("mySphere", {diameter: 2, segments: 32}, scene);
+    let sphere = BABYLON.MeshBuilder.CreateSphere("mySphere", { diameter: 2, segments: 32 }, scene);
     sphere.position.y = 1;
 
+    let sphere2 = BABYLON.MeshBuilder.CreateSphere("mySphere2", { diameter: 4, segments: 32 }, scene);
+    sphere2.position.x = -7;
+    sphere2.position.y = 5;
+
+    let sphere3 = BABYLON.MeshBuilder.CreateSphere("mySphere3", { diameter: 1, segments: 32 }, scene);
+    sphere3.position.x = 7;
+    sphere3.position.y = 5;
+
     // a plane
-    let ground = BABYLON.MeshBuilder.CreateGround("myGround", {width: 60, height: 60}, scene);
+    let ground = BABYLON.MeshBuilder.CreateGround("myGround", { width: 60, height: 60 }, scene);
     //console.log(ground.name);
 
-     camera = new BABYLON.FreeCamera("myCamera", new BABYLON.Vector3(0, 5, -10), scene);
-   // This targets the camera to scene origin
-   camera.setTarget(BABYLON.Vector3.Zero());
-   //camera.rotation.y = 0.3;
-   camera.attachControl(canvas);
-   
+    camera = new BABYLON.FreeCamera("myCamera", new BABYLON.Vector3(0, 35, -30), scene);
+    // camera.position.y = 50;
+    // camera.position = new BABYLON.Vector3(0, 135, -30);
+
+    // This targets the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+    //camera.rotation.y = 0.3;
+    camera.attachControl(canvas);
+
     let light = new BABYLON.HemisphericLight("myLight", new BABYLON.Vector3(0, 1, 0), scene);
     light.intensity = 0.3;
     // color of the light
     light.diffuse = new BABYLON.Color3(1, 1, 1);
+
+    // let light2 = new BABYLON.HemisphericLight("myLight2", new BABYLON.Vector3(0, 1, 0), scene);
+    // light.intensity = 0.3;
+    // // color of the light
+    // light.diffuse = new BABYLON.Color3(1, 1, 1);
+
+
     return scene;
 }
 
